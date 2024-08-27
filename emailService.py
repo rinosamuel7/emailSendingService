@@ -6,7 +6,9 @@ class EmailService(Connection):
     def __init__(s):
         s.db = Connection(host="localhost",user="root",password="12345678",database="newsletter")
         s.cur = s.db.cursor()
-
+        '''
+            creating the connection with the database
+        '''
 
         s.emails = {}
         s.emailLimit = {}
@@ -20,6 +22,10 @@ class EmailService(Connection):
                 s.emailLimit[i[0]] = i[2]
             if i[0] not in s.emailUniqueness.keys():
                 s.emailUniqueness[i[0]] = i[3]
+        '''
+            Fetching the details from the database and inserting
+            them into 3 different dictionaries
+        '''
 
         print(s.emails)
         print(s.emailLimit)
@@ -32,8 +38,8 @@ class mockEmail_1(EmailService):
     def __init__(s):
         super().__init__()
              
-        s.unique = input("Assign an alphabet for this email: ")
-        s.failedEmailsfromMock1 =[]
+        s.unique = input("Assign an alphabet for this email: ")  
+        s.failedEmailsfromMock1 =[] #people whose email did not go through from 1st provider gets collected here
 
 
         for i in s.emailUniqueness.items():
@@ -52,8 +58,8 @@ class mockEmail_1(EmailService):
                     while emailSendingAttempt<4:
                         responseFromRecepient = input("Press 'y' if the email is sent successfully/or any other key for failure: ")
                         if responseFromRecepient == "y":
-                            s.emailUniqueness[i[0]]+= s.unique
-                            s.emailLimit[i[0]]+=1
+                            s.emailUniqueness[i[0]]+= s.unique  #uniqie alphabet gets added to the dictionary upon successful sending of email
+                            s.emailLimit[i[0]]+=1               #limit count gets increased as well
                             time.sleep(1)
                             print("Email Successfully sent to ",i[0],"from mock Email provider 1\n")
                             failure = False
@@ -86,7 +92,7 @@ class mockEmail_1(EmailService):
 class mockEmail_2(mockEmail_1):
     def __init__(s):
         super().__init__()
-        s.failedEmailsfromMock2 =[]
+        s.failedEmailsfromMock2 =[] #people whose email did not go through from 2nd provider gets collected here
 
         
         if len(s.failedEmailsfromMock1)>0:
@@ -103,8 +109,8 @@ class mockEmail_2(mockEmail_1):
                     while emailSendingAttempt<4:
                         responseFromRecepient = input("Press 'y' if the email is sent successfully/or any other key for failure: ")
                         if responseFromRecepient == "y":
-                            s.emailUniqueness[i[0]]+= s.unique
-                            s.emailLimit[j[0]]+=1
+                            s.emailUniqueness[j[0]]+= s.unique          #uniqie alphabet gets added to the dictionary upon successful sending of email
+                            s.emailLimit[j[0]]+=1                       #limit count gets increased as well
                             time.sleep(1)  
                             print("Email Successfully sent to ",j[0],"from mock Email provider 2")
                             failure = False
@@ -146,7 +152,9 @@ class SendEmail(mockEmail_2):
             s.db.commit()
 
         print("Details Updated to Database!")
-
+        '''
+            all the updated details are getting stored in database
+        '''
 
 class Clear(Connection):
     def __init__(s):
