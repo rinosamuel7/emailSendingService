@@ -34,12 +34,12 @@ Execute the following SQL commands to set up the database and table:
         uniqueness VARCHAR(50)
     );
 
-INSERT INTO details (c_names, c_emails, limits, uniqueness) VALUES 
-('lilly', 'lilly@gmail.com', 0, ''),
-
-('tom', 'tom@gmail.com', 0, ''),
-
-('john', 'john@gmail.com', 0, '');
+    INSERT INTO details (c_names, c_emails, limits, uniqueness) VALUES 
+    ('lilly', 'lilly@gmail.com', 0, ''),
+    
+    ('tom', 'tom@gmail.com', 0, ''),
+    
+    ('john', 'john@gmail.com', 0, '');
 ## Assumptions 
 For the sake of project I have used 3 subscribers. 
 
